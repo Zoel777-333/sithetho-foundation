@@ -13,29 +13,23 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Unzip project
-        run: unzip sithetho-foundation-website.zip
+        run: unzip "*.zip"
 
       - uses: actions/setup-node@v4
         with:
           node-version: 18
 
       - name: Install
-        run: |
-          cd sithetho-foundation-website
-          npm install
+        run: npm install
 
       - name: Build
-        run: |
-          cd sithetho-foundation-website
-          npm run build
+        run: npm run build
 
       - name: Export
-        run: |
-          cd sithetho-foundation-website
-          npm run export
+        run: npm run export
 
       - name: Upload site
         uses: actions/upload-artifact@v4
         with:
           name: site
-          path: sithetho-foundation-website/out
+          path: out
