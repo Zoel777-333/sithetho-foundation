@@ -1,0 +1,41 @@
+name: Build and Export Next.js (ZIP)
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Unzip project
+        run: unzip sithetho-foundation-website.zip
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install
+        run: |
+          cd sithetho-foundation-website
+          npm install
+
+      - name: Build
+        run: |
+          cd sithetho-foundation-website
+          npm run build
+
+      - name: Export
+        run: |
+          cd sithetho-foundation-website
+          npm run export
+
+      - name: Upload site
+        uses: actions/upload-artifact@v4
+        with:
+          name: site
+          path: sithetho-foundation-website/out
